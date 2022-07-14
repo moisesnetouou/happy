@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-redeclare */
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { FiClock, FiInfo } from "react-icons/fi";
-import { Marker, TileLayer } from "react-leaflet";
+import { Marker } from "react-leaflet";
 import L from 'leaflet';
 
 import mapMarkerImg from '../assets/images/map-marker.svg';
@@ -30,7 +30,7 @@ interface Orphanage {
   about: string;
   instructions: string;
   opening_hours: string;
-  opening_on_weekends: string;
+  open_on_weekends: string;
   images: [{
     id: number;
     url: string;
@@ -45,8 +45,6 @@ export function Orphanage() {
   useEffect(()=> {
     api.get(`orphanages/${id}`).then(response => {
       setOrphanage(response.data);
-
-      console.log(response.data)
     })
   }, [id])
 
@@ -120,7 +118,7 @@ export function Orphanage() {
                 {orphanage.opening_hours}
               </div>
               
-              {orphanage.opening_on_weekends 
+              {orphanage.open_on_weekends
                 ? (
                   <div className="open-on-weekends">
                     <FiInfo size={32} color="#39CC83" />
