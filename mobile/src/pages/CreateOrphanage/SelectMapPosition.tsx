@@ -32,7 +32,7 @@ export function SelectMapPosition() {
         onPress={handleSelectMapPosition}
         style={styles.mapStyle}
       >
-        { !!position.latitude && (
+        { position.latitude !== 0 && (
           <Marker 
             icon={mapMarkerImg}
             coordinate={position}
