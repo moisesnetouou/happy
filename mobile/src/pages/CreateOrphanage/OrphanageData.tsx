@@ -5,7 +5,7 @@ import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { api } from '../../services/api';
-
+import * as FormDataProps from 'form-data';
 interface OrphanageDataRouteParams {
   position: { latitude: number, longitude: number};
 }
@@ -28,9 +28,9 @@ export function OrphanageData() {
     const data = new FormData();
 
     data.append('name', name);
-    data.append('about', about);
     data.append('latitude', String(latitude));
     data.append('longitude', String(longitude));
+    data.append('about', about);
     data.append('instructions', instructions);
     data.append('opening_hours', opening_hours);
     data.append('open_on_weekends', String(open_on_weekends));
@@ -43,7 +43,11 @@ export function OrphanageData() {
       } as any)
     })
 
-    await api.post('orphanages', data);
+    await api.post('orphanages', data, {
+      headers: {
+        "Content-Type": "multipart/form-data" 
+      }
+    });
 
     //@ts-ignore
     navigation.navigate('OrphanagesMap');
@@ -54,6 +58,7 @@ export function OrphanageData() {
 
     if (status !== 'granted') {
       alert('Eita! Precisamos de acesso às suas fotos...');
+      return;
     }
 
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -68,7 +73,6 @@ export function OrphanageData() {
 
     const { uri: image } = result;
 
-    console.log(image);
     setImages([...images, image]);
   }
 
@@ -91,10 +95,10 @@ export function OrphanageData() {
         onChangeText={setAbout}
       />
 
-      <Text style={styles.label}>Whatsapp</Text>
+      {/* <Text style={styles.label}>Whatsapp</Text>
       <TextInput
         style={styles.input}
-      />
+      /> */}
 
       <Text style={styles.label}>Fotos</Text>
 
