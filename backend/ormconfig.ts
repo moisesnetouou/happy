@@ -4,19 +4,18 @@ dotenv.config();
 
 export = {
   "type": "postgres",
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  synchronize: false,
+  host: process.env.POSTGRES_HOST,
+  port: process.env.POSTGRES_PORT,
+  username: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DB,
   "migrations": [
-    path.resolve(__dirname, 'src', 'database', 'migrations', '**/*.{.ts,.js}')
+    "./src/database/migrations/*.ts"
   ],
   "entities": [
-    path.resolve(__dirname, 'src', 'models', '**/*.{.ts,.js}')
+    "./src/models/*.ts"
   ],
   "cli": {
-    "migrationsDir": path.resolve(__dirname, 'src', 'database', 'migrations', '**/*.{.ts,.js}')
+    "migrationsDir": "./src/database/migrations"
   }
 }
