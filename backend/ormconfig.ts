@@ -11,12 +11,12 @@ export = {
   database: process.env.PGDATABASE,
   synchronize: false,
   "migrations": [
-    path.resolve(__dirname, 'src', 'database', 'migrations', '**/*.{.ts,.js}')
+    "./src/database/migrations/*.ts"
   ],
   "entities": [
-    path.resolve(__dirname, 'src', 'models', '**/*.{.ts,.js}')
+    "./src/models/*.ts"
   ],
   "cli": {
-    "migrationsDir": path.resolve(__dirname, 'src', 'database', 'migrations', '**/*.{.ts,.js}')
+    "migrationsDir": "./src/database/migrations"
   }
 }
